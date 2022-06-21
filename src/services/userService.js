@@ -1,10 +1,18 @@
+import userModel from "../models/user";
 class UserServices {
-  static testServiceFunction(req,) {
-    req.body.names = req.body.names.toUpperCase();
-    const {num1,num2} =req.body;
+  // static registerUser
+  static async registerUser(req) {
+    const user = userModel.create(req.body);
 
-    const sum =num1+num2;
-    req.body.sum=sum;
+    return user;
+  }
+
+  static testServiceFunction(req) {
+    req.body.names = req.body.names.toUpperCase();
+    const { num1, num2 } = req.body;
+
+    const sum = num1 + num2;
+    req.body.sum = sum;
     return req.body;
   }
 }
