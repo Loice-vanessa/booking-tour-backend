@@ -4,7 +4,10 @@ import UserController from "../controllers/userControllers";
 const route =Router();
 
 route.post("/user/test",UserController.testController);
-route.post("/user/create",UserController.registerUser);
+route.post("/user",UserController.registerUser);
+route.get("/user",UserController.getAll);
+route.delete("/user/:id",UserController.deleteUser);
+route.patch("/user/:id",UserController.updateUser);
 
 
 export default route;

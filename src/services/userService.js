@@ -6,6 +6,26 @@ class UserServices {
 
     return user;
   }
+  // static getall
+  static async getAll(req) {
+    const user = userModel.find();
+
+    return user;
+  }
+  //static deleteUser
+  static async deleteUser(req) {
+    const user = userModel.deleteOne({_id: req.params.id});
+
+    return user;
+  }
+  //static updateUser
+  static async updateUser(req) {
+    await userModel.findOneAndUpdate({_id: req.params.id},req.body);
+    const user = userModel.findOne({_id: req.params.id});
+    return user;
+  }
+  //
+
 
   static testServiceFunction(req) {
     req.body.names = req.body.names.toUpperCase();
