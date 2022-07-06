@@ -1,9 +1,16 @@
 import userModel from "../models/user";
+import handlePassword from "../utils/handlepassword";
 class UserServices {
+  //login
+  static async loginUser(){
+    const user = await userModel.findOne({email:req.body.email});
+    return user;
+  }
   // static registerUser
   static async registerUser(req) {
+    req.body.password = handlePassword.encryptPassword(req.body.password);
     const user = userModel.create(req.body);
-
+   
     return user;
   }
   // static getall
@@ -20,8 +27,9 @@ class UserServices {
   }
   //static updateUser
   static async updateUser(req) {
-    await userModel.findOneAndUpdate({_id: req.params.id},req.body);
-    const user = userModel.findOne({_id: req.params.id});
+    // const user=await userModel.findOneAndUpdate({_id: req.params.id},req.body,{new:true});
+    const user=await userModel.findByIdAndUpdate(req.params.id,req.body,{new:true});
+    // const user = userModel.findOne({_id: req.params.id});
     return user;
   }
   //

@@ -1,6 +1,18 @@
 import UserServices from "../services/userService";
-
+import handlePasswords from "../utils/handlepassword"
 class UserController{
+    //loginuser controllers
+    static async loginUserController(req,res){
+        const user=await UserServices.loginUser(req);
+        if(!user){
+            return res.status(400).jason({message:"user is not exist"})
+        }
+        if(handlePasswords.checkPassword(user.password,req.body.password)){
+            return res.status(200).json({message:"logged in successfully"})
+        }else{
+            return res.status(400).json({message:"faild to loggin,password is wrong!"})
+        }
+    }
     // register User
     static async registerUser(req,res){
         const newUser = await UserServices.registerUser(req)
@@ -9,13 +21,13 @@ class UserController{
         }
         return res.status(201).json({message:"success",data: newUser});
     }
-    //get user
+    //get all user
     static async getAll(req,res){
         const newUser = await UserServices.getAll(req)
         if (!newUser){
             return res.status(400).json({message:"failed to getall",});
         }
-        return res.status(201).json({message:"success",data: newUser});
+        return res.status(200).json({message:"success",data: newUser});
     }
     //delete user
     static async deleteUser(req,res){
@@ -27,6 +39,8 @@ class UserController{
     }
     //updateUser
     static async updateUser(req,res){
+console.log(req.params.names)
+
         const newUser = await UserServices.updateUser(req)
         if (!newUser){
             return res.status(400).json({message:"failed to updateUser",});
