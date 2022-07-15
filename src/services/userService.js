@@ -2,8 +2,8 @@ import userModel from "../models/user";
 import handlePassword from "../utils/handlepassword";
 class UserServices {
   //login
-  static async loginUser(){
-    const user = await userModel.findOne({email:req.body.email});
+  static async loginUser(req){
+    const user= await userModel.findOne({email:req.body.email});
     return user;
   }
   // static registerUser
